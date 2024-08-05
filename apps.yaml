@@ -9,7 +9,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   project: default
   source:
-    repoURL: 'gitea@localhost:nambrosini/homelab.git'
+    repoURL: 'https://github.com/nambrosini/homelab'
     path: applications
     targetRevision: main
   syncPolicy:

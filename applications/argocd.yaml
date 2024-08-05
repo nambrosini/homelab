@@ -9,11 +9,8 @@ spec:
     server: 'https://kubernetes.default.svc'
   project: default
   source:
-    helm:
-      valueFiles:
-        - ../values/argocd.yaml
     path: charts/argocd
-    repoURL: 'gitea@localhost:nambrosini/homelab.git'
+    repoURL: 'https://github.com/nambrosini/homelab'
     targetRevision: main
   syncPolicy:
     syncOptions:
