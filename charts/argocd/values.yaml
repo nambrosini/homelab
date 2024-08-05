@@ -8,3 +8,12 @@ argo-cd:
   server:
     extraArgs:
       - --insecure
+    service:
+      annotations:
+        tailscale.com/expose: "true"
+        tailscale.com/hostname: "argocd"
+  repositories:
+    homelab-github:
+      url: https://github.com/nambrosini/homelab
+      name: homelab
+      type: git
