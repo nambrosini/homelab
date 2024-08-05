@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pihole
+  namespace: argocd
+spec:
+  destination:
+    namespace: pihole-system
+    server: 'https://kubernetes.default.svc'
+  project: default
+  source:
+    path: charts/pihole
+    repoURL: 'https://github.com/nambrosini/homelab'
+    targetRevision: main
+  syncPolicy:
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
