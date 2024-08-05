@@ -1,0 +1,6 @@
+freshrss:
+  service:
+    main:
+      annotations:
+        tailscale.com/expose: "true"
+        tailscale.com/hostname: "freshrss"
