@@ -1,0 +1,4 @@
+dashy:
+  fullnameOverride: dashy
+  image:
+    tag: latest

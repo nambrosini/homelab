@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dashy
+  namespace: argocd
+spec:
+  destination:
+    namespace: dashy
+    server: 'https://kubernetes.default.svc'
+  project: default
+  source:
+    path: charts/dashy
+    repoURL: 'https://github.com/nambrosini/homelab'
+    targetRevision: main
+  syncPolicy:
+    syncOptions:
+      - ApplyOutOfSyncOnly=true

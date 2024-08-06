@@ -1,13 +1,12 @@
-# https://kubernetes.io/docs/concepts/services-networking/ingress/
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: firefly-ingress
+  name: dashy-ingress
 spec:
   ingressClassName: tailscale
   tls:
   - hosts:
-    - "firefly"
+    - "dashy"
   rules:
   - http:
       paths:
@@ -15,8 +14,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: firefly-firefly-iii
+            name: dashy
             port:
-              number: 80
+              number: 8080
 ---
-
