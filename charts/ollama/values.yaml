@@ -5,11 +5,11 @@ open-webui:
       - llama3.1
       - mistral
     requests:
-      cpu: "2000m"
+      cpu: "1000m"
       memory: "2Gi"
     limits:
-      cpu: "4000m"
-      memory: "4Gi"
+      cpu: "2000m"
+      memory: "8Gi"
 
   clusterDomain: cluster.local
   resources:
