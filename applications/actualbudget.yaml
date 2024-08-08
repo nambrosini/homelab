@@ -1,15 +1,15 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: firefly
+  name: actualbudget
   namespace: argocd
 spec:
   destination:
-    namespace: firefly
+    namespace: actualbudget
     server: 'https://kubernetes.default.svc'
   project: default
   source:
-    path: charts/firefly
+    path: charts/actualbudget
     repoURL: 'https://github.com/nambrosini/homelab'
     targetRevision: main
   syncPolicy:
