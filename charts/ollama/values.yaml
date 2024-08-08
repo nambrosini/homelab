@@ -1,0 +1,21 @@
+open-webui:
+  ollama:
+    enabled: true
+    models:
+      - llama3.1
+      - mistral
+    requests:
+      cpu: "2000m"
+      memory: "2Gi"
+    limits:
+      cpu: "4000m"
+      memory: "4Gi"
+
+  clusterDomain: ollama.taila2ece.ts.net
+  resources:
+    requests:
+      cpu: "500m"
+      memory: "500Mi"
+    limits:
+      cpu: "1000m"
+      memory: "1Gi"
