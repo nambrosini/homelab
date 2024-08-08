@@ -2,28 +2,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: firefly
+  name: actualbudget
   labels:
-    app: firefly
+    app: actualbudget
 spec:
   selector:
     matchLabels:
-      app: firefly
+      app: actualbudget
   replicas: 1
   template:
     metadata:
       annotations:
-        kubectl.kubernetes.io/default-container:  firefly
+        kubectl.kubernetes.io/default-container:  actualbudget
       labels:
-        app: firefly
+        app: actualbudget
     spec:
       containers:
-      - name: firefly
-        image: fireflyiii/core:latest
+      - name: actualbudget
+        image: actualbudget/actual-server:latest
         imagePullPolicy: IfNotPresent
         livenessProbe:
           tcpSocket:
-            port: 8080
+            port: 5006
           initialDelaySeconds: 5
           timeoutSeconds: 5
           successThreshold: 1
@@ -31,18 +31,22 @@ spec:
           periodSeconds: 10
         readinessProbe:
           httpGet:
-            port: 8080
+            port: 5006
           initialDelaySeconds: 5
           timeoutSeconds: 2
           successThreshold: 1
           failureThreshold: 3
           periodSeconds: 10
-        envFrom:
-        - configMapRef:
-            name: firefly-config
         ports:
-        - containerPort: 8080
-          name: firefly
+        - containerPort: 5006
+          name: actualbudget
+        volumeMounts:
+        - name: data
+          mountPath: /data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: actualbudget-pvc
       restartPolicy: Always
 ---
 

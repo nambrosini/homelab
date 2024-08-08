@@ -2,18 +2,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: firefly
-  annotations:
-    tailscale.com/expose: "true"
-    tailscale.com/hostname: "firefly"
+  name: actualbudget
 spec:
   selector:
-    app: firefly
+    app: actualbudget
   type: ClusterIP
   ports:
-  - name: firefly
+  - name: actualbudget
     protocol: TCP
-    port: 8080
-    targetPort: 8080
+    port: 5006
+    targetPort: 5006
 ---
 
