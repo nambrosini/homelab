@@ -1,0 +1,19 @@
+# https://kubernetes.io/docs/concepts/services-networking/service/
+apiVersion: v1
+kind: Service
+metadata:
+  name: firefly
+  annotations:
+    tailscale.com/expose: "true"
+    tailscale.com/hostname: "firefly"
+spec:
+  selector:
+    app: firefly
+  type: ClusterIP
+  ports:
+  - name: firefly
+    protocol: TCP
+    port: 8080
+    targetPort: 8080
+---
+

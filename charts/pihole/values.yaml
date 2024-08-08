@@ -5,6 +5,7 @@ pihole:
     208.67.220.220
   persistentVolumeClaim:
     enabled: true
+    storageClass: "longhorn"
   replicaCount: 1
   serviceDns:
     type: LoadBalancer

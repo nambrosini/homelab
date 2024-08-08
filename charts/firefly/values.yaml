@@ -1,3 +1,0 @@
-firefly-iii-stack:
-  firefly-db:
-    enabled: false

@@ -1,0 +1,47 @@
+# https://kubernetes.io/docs/concepts/configuration/configmap/
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dashy-config
+data:
+  conf.yml: |
+    pageInfo:  
+      title: Home Lab
+    section:
+    - name: Services
+      icon: fas fa-server
+      items:
+      - title: FreshRSS
+        description: FreshRSS Feed Reader
+        icon: fas fa-rss
+        url: https://freshrss.taila2ece.ts.net
+      - title: PiHole
+        description: PiHole DNS
+        icon: fas fa-shield-alt
+        url: https://pihole.taila2ece.ts.net/admin
+      - title: Mealie
+        description: Receipt Manager
+        icon: fa fa-burger
+        url: https://mealie.taila2ece.ts.net
+    - name: Tools
+      icon: fas fa-tools
+      items:
+      - title: Longhorn
+        description: Longhorn Storage
+        icon: fas fa-hdd
+        url: https://longhorn.taila2ece.ts.net
+      - title: ArgoCD
+        description: Argocd
+        icon: fa fa-arrow-rotate
+        url: http://argocd.taila2ece.ts.net
+    - name: General
+      icon: far fa-rocket
+      items:
+      - title: Github
+        description: Homelab Github Repo
+        icon: fab fa-github
+        url: http://github.com/nambrosini/homelab
+    appConfig:
+      theme: Colorful
+---
+

@@ -1,0 +1,48 @@
+# https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: firefly
+  labels:
+    app: firefly
+spec:
+  selector:
+    matchLabels:
+      app: firefly
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container:  firefly
+      labels:
+        app: firefly
+    spec:
+      containers:
+      - name: firefly
+        image: fireflyiii/core:latest
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 5
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 3
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            port: 8080
+          initialDelaySeconds: 5
+          timeoutSeconds: 2
+          successThreshold: 1
+          failureThreshold: 3
+          periodSeconds: 10
+        envFrom:
+        - configMapRef:
+            name: firefly-config
+        ports:
+        - containerPort: 8080
+          name: firefly
+      restartPolicy: Always
+---
+

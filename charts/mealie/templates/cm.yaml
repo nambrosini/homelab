@@ -1,0 +1,15 @@
+# https://kubernetes.io/docs/concepts/configuration/configmap/
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mealie-config
+data:
+  ALLOW_SIGNUP: "false"
+  PUID: "1000"
+  PGID: "1000"
+  TZ: "Europe/Zurich"
+  MAX_WORKERS: "1"
+  WEB_CONCURRENCY: "1"
+  BASE_URL: "https://mealie.taila2ece.ts.net"
+---
+
