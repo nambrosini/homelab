@@ -35,7 +35,7 @@ keycloakx:
     password: dbpassword
     database: keycloak
 
-postgres:
+postgresql:
   global:
     postgresql:
       auth:
