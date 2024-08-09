@@ -23,17 +23,26 @@ keycloakx:
       value: >-
         -XX:MaxRAMPercentage=50.0
         -Djgroups.dns.query={{ include "keycloak.fullname" . }}-headless
+    - name:  KC_HOSTNAME
+      value: cluster.local
 
   dbchecker:
     enabled: true
 
   database:
     vendor: postgres
-    hostname: keycloak-db-postgresql
+    hostname: keycloak-postgresql
     port: 5432
     username: dbusername
     password: dbpassword
-    database: keycloak
+  secrets:
+    admin-creds:
+      annotations:
+        my-test-annotation: Test secret for {{ include "keycloak.fullname" . }}
+      stringData:
+        user: admin
+        password: secret
+        database: keycloak
 
 postgresql:
   global:
