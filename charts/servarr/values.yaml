@@ -2,7 +2,7 @@ plex:
   volumes:
     - name: data
       hostPath:
-      - path: "/media/library"
+        path: "/media/library"
         type: "Directory"
   volumeMounts:
     - name: data
