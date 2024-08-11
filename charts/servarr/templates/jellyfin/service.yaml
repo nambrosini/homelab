@@ -2,36 +2,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: jellyfin-web
+  name: jellyfin
   namespace: media
 spec:
   selector:
-    app: jellyfin-web
+    app: jellyfin
   type: ClusterIP
   ports:
-  - name: jellyfin-web
+  - name: jellyfin
     protocol: TCP
     port: 8096
     targetPort: 8096
 ---
-# https://kubernetes.io/docs/concepts/services-networking/service/
-apiVersion: v1
-kind: Service
-metadata:
-  name: jellyfin-discovery
-  namespace: media
-spec:
-  selector:
-    app: jellyfin-discovery
-  type: ClusterIP
-  ports:
-  - name: jellyfin-discovery
-    protocol: TCP
-    port: 7359
-    targetPort: 7359
-  - name: dlna
-    protocol: TCP
-    port: 1900
-    targetPort: 1900
----
-
