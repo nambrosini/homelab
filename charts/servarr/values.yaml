@@ -1,9 +1,0 @@
-plex:
-  volumes:
-    - name: data
-      hostPath:
-        path: "/media/library"
-        type: "Directory"
-  volumeMounts:
-    - name: data
-      mountPath: "/media"
