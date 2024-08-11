@@ -58,15 +58,15 @@ spec:
           claimName: radarr-data
       - name: movies
         hostPath:
-          path: "/mnt/media/library/movies"
+          path: "/media/library/movies"
           type: "Directory"
       - name: import
         hostPath:
-          path: "/mnt/media/library/import/movies"
+          path: "/media/library/import/movies"
           type: "Directory"
       - name: downloads
         hostPath:
-          path: "/mnt/media/library/downloads"
+          path: "/media/library/downloads"
           type: "Directory"
       restartPolicy: Always
 

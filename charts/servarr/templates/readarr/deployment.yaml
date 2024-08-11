@@ -58,15 +58,15 @@ spec:
           claimName: readarr-data
       - name: books
         hostPath:
-          path: "/mnt/media/library/books"
+          path: "/media/library/books"
           type: "Directory"
       - name: import
         hostPath:
-          path: "/mnt/media/library/import/books"
+          path: "/media/library/import/books"
           type: "Directory"
       - name: downloads
         hostPath:
-          path: "/mnt/media/library/downloads"
+          path: "/media/library/downloads"
           type: "Directory"
       restartPolicy: Always
 

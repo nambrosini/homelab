@@ -54,11 +54,11 @@ spec:
             claimName: jellyfin-data
         - name: movies
           hostPath:
-            path: "/mnt/media/library/movies"
+            path: "/media/library/movies"
             type: "Directory"
         - name: tv
           hostPath:
-            path: "/mnt/media/library/tv"
+            path: "/media/library/tv"
             type: "Directory"
       restartPolicy: Always
 ---
