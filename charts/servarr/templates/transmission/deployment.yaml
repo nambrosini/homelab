@@ -1,0 +1,84 @@
+# https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transmission
+  namespace: media
+  labels:
+    app: transmission
+spec:
+  selector:
+    matchLabels:
+      app: transmission
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container:  transmission
+      labels:
+        app: transmission
+    spec:
+      containers:
+      - name: transmission
+        image: linuxserver/transmission:latest
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          tcpSocket:
+            port: 9091
+          initialDelaySeconds: 5
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 3
+          periodSeconds: 10
+        readinessProbe:
+          tcpSocket:
+            port: 9091
+          initialDelaySeconds: 5
+          timeoutSeconds: 2
+          successThreshold: 1
+          failureThreshold: 3
+          periodSeconds: 10
+        securityContext:
+          allowPrivilegeEscalation: true
+          capabilities:
+            add:
+            - NET_ADMIN
+          privileged: true
+        envFrom:
+        - configMapRef:
+            name: transmission-cm
+        env:
+          - name: USER
+            valueFrom:
+              secretKeyRef:
+                name: transmission-secret
+                key: user
+          - name: PASS
+            valueFrom:
+              secretKeyRef:
+                name: transmission-secret
+                key: password
+        ports:
+        - containerPort: 9091
+        volumeMounts:
+        - name: data
+          mountPath: /config
+        - name: tunnel
+          mountPath: /dev/net/tun
+        - name: downloads
+          mountPath: /downloads
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: transmission-data
+      - name: downloads
+        hostPath:
+          path: "/mnt/media/library/downloads"
+          type: "Directory"
+      - name: tunnel
+        hostPath:
+          path: /dev/net/tun
+          type: ""
+      restartPolicy: Always
+---
+

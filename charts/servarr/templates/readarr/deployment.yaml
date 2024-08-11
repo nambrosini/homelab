@@ -1,0 +1,72 @@
+---
+# https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: readarr
+  namespace: media
+  labels:
+    app: readarr
+spec:
+  selector:
+    matchLabels:
+      app: readarr
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container:  readarr
+      labels:
+        app: readarr
+    spec:
+      containers:
+      - name: readarr
+        image: linuxserver/readarr:nightly
+        envFrom:
+        - configMapRef:
+            name: readarr-cm
+        ports:
+        - containerPort: 8787
+        livenessProbe:
+          failureThreshold: 3
+          initialDelaySeconds: 10
+          periodSeconds: 2
+          successThreshold: 1
+          tcpSocket:
+            port: 8787
+          timeoutSeconds: 2
+        readinessProbe:
+          failureThreshold: 3
+          initialDelaySeconds: 10
+          periodSeconds: 2
+          successThreshold: 2
+          httpGet:
+            port: 8787
+          timeoutSeconds: 2
+        volumeMounts:
+        - name: data
+          mountPath: /config
+        - name: books
+          mountPath: /books
+        - name: import
+          mountPath: /import
+        - name: downloads
+          mountPath: /downloads
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: readarr-data
+      - name: books
+        hostPath:
+          path: "/mnt/media/library/books"
+          type: "Directory"
+      - name: import
+        hostPath:
+          path: "/mnt/media/library/import/books"
+          type: "Directory"
+      - name: downloads
+        hostPath:
+          path: "/mnt/media/library/downloads"
+          type: "Directory"
+      restartPolicy: Always
+

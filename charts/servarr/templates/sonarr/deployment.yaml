@@ -1,0 +1,72 @@
+---
+# https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sonarr
+  namespace: media
+  labels:
+    app: sonarr
+spec:
+  selector:
+    matchLabels:
+      app: sonarr
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container:  sonarr
+      labels:
+        app: sonarr
+    spec:
+      containers:
+      - name: sonarr
+        image: linuxserver/sonarr:latest
+        envFrom:
+        - configMapRef:
+            name: sonarr-cm
+        ports:
+        - containerPort: 8989
+        livenessProbe:
+          failureThreshold: 3
+          initialDelaySeconds: 10
+          periodSeconds: 2
+          successThreshold: 1
+          tcpSocket:
+            port: 8989
+          timeoutSeconds: 2
+        readinessProbe:
+          failureThreshold: 3
+          initialDelaySeconds: 10
+          periodSeconds: 2
+          successThreshold: 2
+          httpGet:
+            port: 8989
+          timeoutSeconds: 2
+        volumeMounts:
+        - name: data
+          mountPath: /config
+        - name: tv
+          mountPath: /tv
+        - name: import
+          mountPath: /import
+        - name: downloads
+          mountPath: /downloads
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: sonarr-data
+      - name: tv
+        hostPath:
+          path: "/mnt/media/library/tv"
+          type: "Directory"
+      - name: import
+        hostPath:
+          path: "/mnt/media/library/import/tv"
+          type: "Directory"
+      - name: downloads
+        hostPath:
+          path: "/mnt/media/library/downloads"
+          type: "Directory"
+      restartPolicy: Always
+

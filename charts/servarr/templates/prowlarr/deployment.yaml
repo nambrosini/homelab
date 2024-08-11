@@ -1,0 +1,54 @@
+# https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prowlarr
+  namespace: media
+  labels:
+    app: prowlarr
+spec:
+  selector:
+    matchLabels:
+      app: prowlarr
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container:  prowlarr
+      labels:
+        app: prowlarr
+    spec:
+      containers:
+      - name: prowlarr
+        image: lscr.io/linuxserver/prowlarr:develop
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          initialDelaySeconds: 10
+          periodSeconds: 2
+          successThreshold: 1
+          tcpSocket:
+            port: 9696
+          timeoutSeconds: 2
+        readinessProbe:
+          failureThreshold: 3
+          initialDelaySeconds: 10
+          periodSeconds: 2
+          successThreshold: 2
+          httpGet:
+            port: 9696
+          timeoutSeconds: 2
+        envFrom:
+        - configMapRef:
+            name: prowlarr-cm
+        ports:
+        - containerPort: 9696
+          name: prowlarr
+        volumeMounts:
+        - name: data
+          mountPath: /config
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: prowlarr-data
+      restartPolicy: Always

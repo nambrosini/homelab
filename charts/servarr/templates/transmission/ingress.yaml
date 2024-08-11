@@ -1,0 +1,23 @@
+# https://kubernetes.io/docs/concepts/services-networking/ingress/
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: transmission
+  namespace: media
+spec:
+  ingressClassName: tailscale
+  tls:
+  - hosts:
+    - "transmission"
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: transmission
+            port:
+              number: 9091
+---
+

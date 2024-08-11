@@ -1,0 +1,65 @@
+# https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jellyfin
+  namespace: media
+  labels:
+    app: jellyfin
+spec:
+  selector:
+    matchLabels:
+      app: jellyfin
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container:  jellyfin
+      labels:
+        app: jellyfin
+    spec:
+      containers:
+      - name: jellyfin
+        image: linuxserver/jellyfin:latest
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          tcpSocket:
+            port: 8096
+          initialDelaySeconds: 5
+          timeoutSeconds: 10
+          successThreshold: 1
+          failureThreshold: 5
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            port: 8096
+          initialDelaySeconds: 5
+          timeoutSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+          periodSeconds: 30
+        ports:
+        - containerPort: 8096
+          name: jellyfin
+        volumeMounts:
+        - name: data
+          mountPath: "/config"
+        - name: movies
+          mountPath: "/data/movies"
+        - name: tv
+          mountPath: "/data/tv"
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: jellyfin-data
+        - name: movies
+          hostPath:
+            path: "/mnt/media/library/movies"
+            type: "Directory"
+        - name: tv
+          hostPath:
+            path: "/mnt/media/library/tv"
+            type: "Directory"
+      restartPolicy: Always
+---
+

@@ -1,0 +1,17 @@
+# https://kubernetes.io/docs/concepts/services-networking/service/
+apiVersion: v1
+kind: Service
+metadata:
+  name: transmission
+  namespace: media
+spec:
+  selector:
+    app: transmission
+  type: ClusterIP
+  ports:
+  - name: transmission
+    protocol: TCP
+    port: 9091
+    targetPort: 9091
+---
+
