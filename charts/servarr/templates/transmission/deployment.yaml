@@ -73,7 +73,7 @@ spec:
           claimName: transmission-data
       - name: downloads
         hostPath:
-          path: "/mnt/media/library/downloads"
+          path: "/media/library/downloads"
           type: "Directory"
       - name: tunnel
         hostPath:
