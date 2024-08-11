@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: servarr
+  namespace: argocd
+spec:
+  destination:
+    namespace: servarr
+    server: 'https://kubernetes.default.svc'
+  project: default
+  source:
+    path: charts/servarr
+    repoURL: 'https://github.com/nambrosini/homelab'
+    targetRevision: main
+  syncPolicy:
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
