@@ -1,15 +1,15 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ollama
+  name: adguard
   namespace: argocd
 spec:
   destination:
-    namespace: ollama-system
+    namespace: adguard-system
     server: 'https://kubernetes.default.svc'
   project: default
   source:
-    path: charts/ollama
+    path: charts/adguard
     repoURL: 'https://github.com/nambrosini/homelab'
     targetRevision: main
   syncPolicy:

@@ -1,0 +1,12 @@
+service:
+  dns-tcp:
+    annotations:
+      tailscale.com/expose: "true"
+  dns-udp:
+    annotations:
+      tailscale.com/expose: "true"
+persistence:
+  config:
+    storageClass: "longhorn"
+  data:
+    storageClass: "longhorn"
