@@ -7,6 +7,8 @@ service:
       tailscale.com/expose: "true"
 persistence:
   config:
+    enabled: true
     storageClass: "longhorn"
   data:
+    enabled: true
     storageClass: "longhorn"
