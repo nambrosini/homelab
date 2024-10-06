@@ -3,7 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: adguard-home-data
 spec:
-  storageClassName: manual
+  storageClassName: longhorn
   accessModes:
     - ReadWriteOnce
   resources:
