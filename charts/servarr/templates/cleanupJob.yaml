@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cleanup
+spec:
+  schedule: "0 0 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: cleanup
+            image: busybox:latest
+            imagePullPolicy: IfNotPresent
+            command: 
+            - /bin/sh
+            - -c
+            - /bin/rm -rf /media/*
+            volumeMounts:
+            - name: completed
+              mountPath: /media
+          restartPolicy: OnFailure
+          volumes:
+          - name: completed
+            hostPath:
+              path: "/media/library/downloads/complete"
+              type: "Directory"

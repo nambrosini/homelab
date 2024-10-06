@@ -1,0 +1,55 @@
+# https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adguard-home
+  labels:
+    app: adguard-home
+spec:
+  selector:
+    matchLabels:
+      app: adguard-home
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container:  adguard-home
+      labels:
+        app: adguard-home
+    spec:
+      containers:
+      - name: adguard-home
+        image: adguard/adguardhome:latest
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          tcpSocket:
+            port: 3000
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 5
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            port: 3000
+          initialDelaySeconds: 10
+          timeoutSeconds: 2
+          successThreshold: 1
+          failureThreshold: 5
+          periodSeconds: 10
+        envFrom:
+        - configMapRef:
+            name: adguard-home-config 
+        ports:
+        - containerPort: 9000
+          name: adguard-home
+        volumeMounts:
+        - name: adguard-home-data
+          mountPath: /app/data
+      volumes:
+        - name: adguard-home-data
+          persistentVolumeClaim:
+            claimName: adguard-home-pvc
+      restartPolicy: Always
+---
+
