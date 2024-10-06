@@ -5,7 +5,7 @@ metadata:
   # annotations:
   #   tailscale.com/expose: "true"
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app.kubernetes.io/name: adguard-home
   ports:
