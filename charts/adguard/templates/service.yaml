@@ -17,8 +17,3 @@ spec:
       protocol: TCP
       port: 53
       targetPort: 53
-    - name: admin
-      protocol: TCP
-      port: 80
-      targetPort: 3000
-
