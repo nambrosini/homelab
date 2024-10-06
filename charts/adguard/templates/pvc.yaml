@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: adguard-home-data
+  name: adguard-home-pvc
 spec:
   storageClassName: longhorn
   accessModes:
