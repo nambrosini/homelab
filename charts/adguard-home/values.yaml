@@ -229,7 +229,6 @@ service:
   annotations: 
     # metallb.universe.tf/address-pool: network-services
     # metallb.universe.tf/allow-shared-ip: adguard-home-svc
-    tailscale.com/expose: "true"
 
 serviceTCP:
   enabled: true
