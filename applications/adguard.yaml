@@ -9,7 +9,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   project: default
   source:
-    path: charts/adguard
+    path: charts/adguard-home
     repoURL: 'https://github.com/nambrosini/homelab'
     targetRevision: main
   syncPolicy:
