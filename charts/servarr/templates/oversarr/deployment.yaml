@@ -1,0 +1,54 @@
+---
+# https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oversarr
+  namespace: media
+  labels:
+    app: oversarr
+spec:
+  selector:
+    matchLabels:
+      app: oversarr
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container:  oversarr
+      labels:
+        app: oversarr
+    spec:
+      containers:
+      - name: oversarr
+        image: linuxserver/oversarr:latest
+        envFrom:
+        - configMapRef:
+            name: oversarr-cm
+        ports:
+        - containerPort: 5055
+        livenessProbe:
+          failureThreshold: 3
+          initialDelaySeconds: 10
+          periodSeconds: 2
+          successThreshold: 1
+          tcpSocket:
+            port: 5055
+          timeoutSeconds: 2
+        readinessProbe:
+          failureThreshold: 3
+          initialDelaySeconds: 10
+          periodSeconds: 2
+          successThreshold: 2
+          httpGet:
+            port: 5055
+          timeoutSeconds: 2
+        volumeMounts:
+        - name: data
+          mountPath: /app/config
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: oversarr-data
+      restartPolicy: Always
+

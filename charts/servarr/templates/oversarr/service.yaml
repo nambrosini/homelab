@@ -1,0 +1,17 @@
+# https://kubernetes.io/docs/concepts/services-networking/service/
+apiVersion: v1
+kind: Service
+metadata:
+  name: oversarr
+  namespace: media
+spec:
+  selector:
+    app: oversarr
+  type: ClusterIP
+  ports:
+  - name: oversarr
+    protocol: TCP
+    port: 5055
+    targetPort: 5055
+---
+
