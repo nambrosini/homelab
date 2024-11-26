@@ -57,28 +57,21 @@ ingress:
 
 # All the config files for Homepage can be specified under their relevant config block.
 config:
-  # To use an existing ConfigMap uncomment this line and specify the name
-  # useExistingConfigMap: existing-homepage-configmap
-  bookmarks:
-    - Developer:
-        - Github:
-            - abbr: GH
-              href: https://github.com/
+  title: Homelab
+  startUrl: https://home.taila2ece.ts.net
+  theme: dark
+  color: slate
+  background:
+    image: https://images.unsplash.com/photo-1502790671504-542ad42d5189?auto=format&fit=crop&w=2560&q=80
+    blur: sm # sm, "", md, xl... see https://tailwindcss.com/docs/backdrop-blur
+    saturate: 50 # 0, 50, 100... see https://tailwindcss.com/docs/backdrop-saturate
+    brightness: 50 # 0, 50, 75... see https://tailwindcss.com/docs/backdrop-brightness
+    opacity: 50 # 0-100
   services:
     - My First Group:
-        - My First Service:
-            href: http://localhost/
-            description: Homepage is awesome
-
-    - My Second Group:
-        - My Second Service:
-            href: http://localhost/
-            description: Homepage is the best
-
-    - My Third Group:
-        - My Third Service:
-            href: http://localhost/
-            description: Homepage is 😎
+        - Argocd:
+            href: https://argocd.taila2ece.ts.net
+            description: ArgoCD
   widgets:
     - resources:
         # change backend to 'kubernetes' to use Kubernetes integration. Requires RBAC.
@@ -89,19 +82,19 @@ config:
     - search:
         provider: duckduckgo
         target: _blank
-    ## Uncomment to enable Kubernetes integration
-    # - kubernetes:
-    #     cluster:
-    #       show: true
-    #       cpu: true
-    #       memory: true
-    #       showLabel: true
-    #       label: "cluster"
-    #     nodes:
-    #       show: true
-    #       cpu: true
-    #       memory: true
-    #       showLabel: true
+    # Uncomment to enable Kubernetes integration
+    - kubernetes:
+        cluster:
+          show: true
+          cpu: true
+          memory: true
+          showLabel: true
+          label: "cluster"
+        nodes:
+          show: true
+          cpu: true
+          memory: true
+          showLabel: true
   kubernetes:
     # change mode to 'cluster' to use RBAC service account
     mode: disable
