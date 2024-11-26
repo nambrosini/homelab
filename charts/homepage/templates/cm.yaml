@@ -16,12 +16,11 @@ data:
               type: jellyfin
               url: http://jellyfin.media:8096
               key: 13a3ddaed6b64a54afe9fc0d134be8c1
-                enableBlocks: true # optional, defaults to false
-                enableNowPlaying: true # optional, defaults to true
-                enableUser: true # optional, defaults to false
-                showEpisodeNumber: true # optional, defaults to false
-                expandOneStreamToTwoRows: false # optional, defaults to true
-
+                enableBlocks: true
+                enableNowPlaying: true
+                enableUser: true 
+                showEpisodeNumber: true
+                expandOneStreamToTwoRows: false
   settings.yaml: |
     title: Homelab
     startUrl: https://home.taila2ece.ts.net
