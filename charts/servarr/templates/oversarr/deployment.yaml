@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: oversarr
-        image: linuxserver/oversarr:latest
+        image: sctx/overseerr:latest
         envFrom:
         - configMapRef:
             name: oversarr-cm
