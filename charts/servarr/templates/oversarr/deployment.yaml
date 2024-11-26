@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: overseerr
-        image: sctx/overseerr:latest
+        image: fallenbagel/jellyseerr:latest
         envFrom:
         - configMapRef:
             name: overseerr-cm
