@@ -3,10 +3,10 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: oversarr-data
+  name: overseerr-data
   namespace: media
   labels:
-    app: oversarr-data
+    app: overseerr-data
 spec:
   storageClassName: longhorn
   accessModes:

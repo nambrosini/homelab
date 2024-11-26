@@ -3,28 +3,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: oversarr
+  name: overseerr
   namespace: media
   labels:
-    app: oversarr
+    app: overseerr
 spec:
   selector:
     matchLabels:
-      app: oversarr
+      app: overseerr
   replicas: 1
   template:
     metadata:
       annotations:
-        kubectl.kubernetes.io/default-container:  oversarr
+        kubectl.kubernetes.io/default-container: overseerr
       labels:
-        app: oversarr
+        app: overseerr
     spec:
       containers:
-      - name: oversarr
+      - name: overseerr
         image: sctx/overseerr:latest
         envFrom:
         - configMapRef:
-            name: oversarr-cm
+            name: overseerr-cm
         ports:
         - containerPort: 5055
         livenessProbe:
@@ -49,6 +49,6 @@ spec:
       volumes:
       - name: data
         persistentVolumeClaim:
-          claimName: oversarr-data
+          claimName: overseerr-data
       restartPolicy: Always
 
