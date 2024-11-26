@@ -1,6 +1,0 @@
-dependencies:
-- name: dashdot
-  repository: https://oben01.github.io/charts
-  version: 1.1.0
-digest: sha256:516d6a18773b6544ce449fa28cd16d1ff0edfe4482555e2cd1e5a82463c85795
-generated: "2024-11-20T13:42:24.598224+01:00"
