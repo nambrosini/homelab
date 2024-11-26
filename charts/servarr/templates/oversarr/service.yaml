@@ -2,14 +2,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: oversarr
+  name: overseerr
   namespace: media
 spec:
   selector:
-    app: oversarr
+    app: overseerr
   type: ClusterIP
   ports:
-  - name: oversarr
+  - name: overseerr
     protocol: TCP
     port: 5055
     targetPort: 5055
