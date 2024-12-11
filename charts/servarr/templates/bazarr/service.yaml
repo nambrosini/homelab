@@ -1,0 +1,17 @@
+# https://kubernetes.io/docs/concepts/services-networking/service/
+apiVersion: v1
+kind: Service
+metadata:
+  name: bazarr
+  namespace: media
+spec:
+  selector:
+    app: bazarr
+  type: ClusterIP
+  ports:
+  - name: bazarr
+    protocol: TCP
+    port: 6767
+    targetPort: 6767
+---
+

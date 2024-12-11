@@ -1,0 +1,66 @@
+---
+# https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bazarr
+  namespace: media
+  labels:
+    app: bazarr
+spec:
+  selector:
+    matchLabels:
+      app: bazarr
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container:  bazarr
+      labels:
+        app: bazarr
+    spec:
+      containers:
+      - name: bazarr
+        image: linuxserver/bazarr:latest
+        envFrom:
+        - configMapRef:
+            name: bazarr-cm
+        ports:
+        - containerPort: 6767
+        livenessProbe:
+          failureThreshold: 3
+          initialDelaySeconds: 10
+          periodSeconds: 2
+          successThreshold: 1
+          tcpSocket:
+            port: 6767
+          timeoutSeconds: 2
+        readinessProbe:
+          failureThreshold: 3
+          initialDelaySeconds: 10
+          periodSeconds: 2
+          successThreshold: 2
+          httpGet:
+            port: 6767
+          timeoutSeconds: 2
+        volumeMounts:
+        - name: data
+          mountPath: /config
+        - name: tv
+          mountPath: /tv
+        - name: movies
+          mountPath: /movies
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: bazarr-data
+      - name: tv
+        hostPath:
+          path: "/media/library/tv"
+          type: "Directory"
+      - name: movies
+        hostPath:
+          path: "/media/library/movies"
+          type: "Directory"
+      restartPolicy: Always
+
